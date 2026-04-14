@@ -1,4 +1,4 @@
-from sys import excepthook, exception
+from sys import exception
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
