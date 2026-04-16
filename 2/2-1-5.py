@@ -1,4 +1,11 @@
 # https://stepik.org/lesson/165493/step/5?unit=140087
+# 1. Открыть страницу https://suninjuly.github.io/math.html.
+# 2. Считать значение для переменной x.
+# 3. Посчитать математическую функцию от x (код для этого приведён ниже).
+# 4. Ввести ответ в текстовое поле.
+# 5. Отметить checkbox "I'm the robot".
+# 6. Выбрать radiobutton "Robots rule!".
+# 7. Нажать на кнопку Submit.
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By

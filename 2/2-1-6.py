@@ -1,3 +1,5 @@
+# https://stepik.org/lesson/165493/step/6?unit=140087
+
 from selenium import webdriver
 from selenium.webdriver.common.bidi import browser
 from selenium.webdriver.common.by import By
