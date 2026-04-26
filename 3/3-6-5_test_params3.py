@@ -6,6 +6,8 @@
 # 5. дождаться фидбека о том, что ответ правильный
 # 6. проверить, что текст в опциональном фидбеке полностью совпадает с "Correct!"
 
+# FIXME Запускается только через pytest
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from pathlib import Path
