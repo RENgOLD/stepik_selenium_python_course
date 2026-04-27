@@ -3,15 +3,16 @@ from pathlib import Path
 import pytest
 import json
 
-def pytest_addoption(parser):
-    parser.addoption('--browser_name', action='store', default='chrome',
-                     help="Choose browser: chrome or firefox")
-
 @pytest.fixture
 def stepik_creds():
+    """Считывание данных для авторизации на stepik из отдельного файла."""
     path = Path('creds.json')
     creds = json.loads(path.read_text())
     return creds['login'], creds['password']
+
+def pytest_addoption(parser):
+    parser.addoption('--browser_name', action='store', default='chrome',
+                     help="Choose browser: chrome or firefox")
 
 @pytest.fixture(scope="function")
 def browser(request):
@@ -28,3 +29,5 @@ def browser(request):
     yield browser
     print("\nQuit browser...")
     browser.quit()
+
+
