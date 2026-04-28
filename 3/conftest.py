@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options as C_Options
+from selenium.webdriver.firefox.options import Options as FF_Options
 from pathlib import Path
 import pytest
 import json
@@ -11,19 +13,38 @@ def stepik_creds():
     return creds['login'], creds['password']
 
 def pytest_addoption(parser):
+    """Добавление параметров запуска."""
     parser.addoption('--browser_name', action='store', default='chrome',
-                     help="Choose browser: chrome or firefox")
+                     help="Choose browser: chrome or firefox") # Выбор браузера
+    parser.addoption('--language', action='store', default=None,
+                     help="Choose language") # Выбор языка
 
 @pytest.fixture(scope="function")
 def browser(request):
+    """Запуск выбранного браузера с параметрами и закрытие по окончанию теста."""
     browser_name = request.config.getoption("browser_name")
+    language = request.config.getoption("language")
+
     browser = None
     if browser_name == "chrome":
         print("\nStart chrome browser for test...")
-        browser = webdriver.Chrome()
+        if language:
+            options = C_Options()
+            options.add_experimental_option('prefs',
+                                            {'intl.accept_languages': language})
+            print(f"\nLanguage: {language}")
+            browser = webdriver.Chrome(options=options)
+        else:
+            browser = webdriver.Chrome()
     elif browser_name == "firefox":
         print("\nStart firefox browser for test...")
-        browser = webdriver.Firefox()
+        if language:
+            options = FF_Options()
+            options.set_preference("intl.accept_languages", language)
+            print(f"\nLanguage: {language}")
+            browser = webdriver.Firefox(options=options)
+        else:
+            browser = webdriver.Firefox()
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     yield browser
